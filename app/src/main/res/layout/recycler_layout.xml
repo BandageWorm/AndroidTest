@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:clipChildren="false"
               android:clipToPadding="false"
-              android:orientation="vertical">
+              >
 
 
-    <com.qiming.kurtapp.MyRecyclerView
+    <!--<com.qiming.kurtapp.ui.MyRecyclerView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clipChildren="false"-->
+        <!--android:clipToPadding="false"-->
+        <!--android:paddingBottom="200dp"-->
+        <!--android:paddingTop="200dp"-->
+        <!--/>-->
+
+    <com.qiming.kurtapp.ui.PosterView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingBottom="200dp"
-        android:paddingTop="200dp"
-        />
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:descendantFocusability="afterDescendants"/>
 
 
-</LinearLayout>
+</RelativeLayout>

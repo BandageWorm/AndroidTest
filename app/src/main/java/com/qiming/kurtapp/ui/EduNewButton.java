@@ -1,4 +1,4 @@
-package com.qiming.kurtapp;
+package com.qiming.kurtapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
+
+import com.qiming.kurtapp.R;
 
 
 public class EduNewButton extends AppCompatTextView {
@@ -84,12 +87,15 @@ public class EduNewButton extends AppCompatTextView {
         }
     }
 
-    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+    private OnTouchListener touchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(final View view, MotionEvent motionEvent) {
-            view.requestFocus();
-            view.performClick();
-            return true;
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                view.requestFocus();
+                view.performClick();
+                return true;
+            }
+            return false;
         }
     };
 
@@ -98,6 +104,7 @@ public class EduNewButton extends AppCompatTextView {
         public void onFocusChange(View view, boolean b) {
             view.setScaleX(b ? 1.1F : 1.0F);
             view.setScaleY(b ? 1.1F : 1.0F);
+
         }
     };
 }

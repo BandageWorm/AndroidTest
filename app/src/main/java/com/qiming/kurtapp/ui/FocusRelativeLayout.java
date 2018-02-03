@@ -1,4 +1,4 @@
-package com.qiming.kurtapp;
+package com.qiming.kurtapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import com.qiming.kurtapp.R;
 
 
 public class FocusRelativeLayout extends RelativeLayout {
@@ -89,10 +91,14 @@ public class FocusRelativeLayout extends RelativeLayout {
         }
     };
 
-    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+    private OnTouchListener touchListener = new OnTouchListener() {
         @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            view.requestFocus();
+        public boolean onTouch(final View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                view.requestFocus();
+                view.performClick();
+                return true;
+            }
             return false;
         }
     };

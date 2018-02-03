@@ -1,51 +1,65 @@
-package com.qiming.kurtapp;
+package com.qiming.kurtapp.ui;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
+
+import com.bumptech.glide.Glide;
+import com.qiming.kurtapp.R;
+import com.qiming.kurtapp.Utils;
+import com.qiming.kurtapp.entity.Example;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by kurtg on 18/2/3.
  */
 
-public class MyRecyclerView extends RecyclerView {
+public class PosterView extends RecyclerView {
 
     private Context context = getContext();
-    private ArrayList<String> list = new ArrayList<>();
+    private List<Example.ResultBean> list = new ArrayList<>();
 
-    public MyRecyclerView(Context context) {
+    public PosterView(Context context) {
         super(context);
         init();
     }
 
-    public MyRecyclerView(Context context, AttributeSet set) {
+    public PosterView(Context context, AttributeSet set) {
         super(context, set);
         init();
     }
 
-    public MyRecyclerView(Context context, AttributeSet set, int def) {
+    public PosterView(Context context, AttributeSet set, int def) {
         super(context, set, def);
         init();
     }
 
     private void init() {
-        for(int i = 10; i < 13; i++){
-            list.add("AA" + i);
-        }
+        Example json = Utils.getJsonExp(getContext());
+        Log.i("vvv", json.toString());
+        list = json.getSearchResultList();
         setLayoutManager(new MyLayoutManager(context));
         setAdapter(new MyAdapter());
         addItemDecoration(decoration);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.i("ttt", "focus:" + getFocusedChild());
+            }
+        }, 1000, 1000);
 
     }
 
@@ -53,16 +67,17 @@ public class MyRecyclerView extends RecyclerView {
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.top = 20;
-            outRect.bottom = 20;
-            outRect.left = 150;
+            outRect.top = 50;
+            outRect.bottom = 50;
+            outRect.left = 20;
+            outRect.right = 20;
         }
     };
 
     class MyAdapter extends Adapter<MyHolder> {
         @Override
         public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LinearLayout view = (LinearLayout)LayoutInflater.from(context).inflate(R.layout.recycler_item, null);
+            RelativeLayout view = (RelativeLayout)LayoutInflater.from(context).inflate(R.layout.poster_layout, null);
             view.setClipToPadding(false);
             view.setClipChildren(false);
             return new MyHolder(view);
@@ -80,23 +95,31 @@ public class MyRecyclerView extends RecyclerView {
     }
 
     class MyHolder extends ViewHolder {
-        LinearLayout parent;
-        EduNewButton textView;
+        RelativeLayout parent;
+        PosterImageView imageView;
+        MarqueeTextView textView;
 
-        public MyHolder(LinearLayout parent) {
+        public MyHolder(RelativeLayout parent) {
             super(parent);
-            this.parent = (LinearLayout) parent;
-            textView = (EduNewButton) parent.findViewById(R.id.text);
+            this.parent = parent;
+            imageView = (PosterImageView) parent.findViewById(R.id.poster_image);
+            textView = (MarqueeTextView) parent.findViewById(R.id.poster_text);
+            parent.setOnTouchListener(touchListener);
+            parent.setOnFocusChangeListener(focusListener);
+            parent.setFocusable(true);
+            parent.setFocusableInTouchMode(true);
         }
 
         public void update(int pos) {
-            textView.setText(list.get(pos));
+            Example.ResultBean bean = list.get(pos);
+            textView.setText(Utils.highlightTitle(bean.getMediaTitle()));
+            Glide.with(getContext()).load(bean.getPoster()).into(imageView);
         }
     }
 
     class MyLayoutManager extends GridLayoutManager {
         public MyLayoutManager(Context context) {
-            super(context, 1);
+            super(context, 3);
         }
 
         @Override
@@ -130,4 +153,24 @@ public class MyRecyclerView extends RecyclerView {
             return false;
         }
     }
+
+
+    private OnTouchListener touchListener = new OnTouchListener() {
+        @Override
+        public boolean onTouch(final View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                view.requestFocus();
+                return true;
+            }
+            return false;
+        }
+    };
+
+    private OnFocusChangeListener focusListener = new OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean b) {
+            view.setScaleX(b ? 1.1F : 1.0F);
+            view.setScaleY(b ? 1.1F : 1.0F);
+        }
+    };
 }
