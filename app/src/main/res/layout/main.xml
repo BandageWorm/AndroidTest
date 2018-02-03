@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        tools:context="com.qiming.kurtapp.MainActivity">
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <com.qiming.kurtapp.FocusRelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:focusableInTouchMode="true"
+            >
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:duplicateParentState="true"
+                android:gravity="center"
+                android:text="我是小A"
+                android:textColor="@color/selector"
+                android:textSize="20dp"
+                />
+        </com.qiming.kurtapp.FocusRelativeLayout>
+
+        <com.qiming.kurtapp.FocusRelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:duplicateParentState="true"
+                android:gravity="center"
+                android:text="我是小B"
+                android:textColor="@color/selector"
+                android:textSize="20dp"
+                />
+        </com.qiming.kurtapp.FocusRelativeLayout>
+
+        <com.qiming.kurtapp.EduNewButton
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="我是大A"
+            android:textColor="@color/selector"
+            android:textSize="20dp"
+            />
+
+        <com.qiming.kurtapp.EduNewButton
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="我是大B"
+            android:textColor="@color/selector"
+            android:textSize="20dp"
+            />
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="600dp"/>
+
+    </LinearLayout>
+</ScrollView>
