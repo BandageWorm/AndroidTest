@@ -54,7 +54,6 @@ public class MyRecyclerView extends RecyclerView {
             super.getItemOffsets(outRect, view, parent, state);
             outRect.top = 20;
             outRect.bottom = 20;
-            outRect.left = 150;
         }
     };
 

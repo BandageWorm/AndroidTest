@@ -28,6 +28,7 @@
             >
 
             <TextView
+                android:id="@+id/tv_a"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
@@ -48,6 +49,7 @@
             android:focusableInTouchMode="true">
 
             <TextView
+                android:id="@+id/tv_b"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"

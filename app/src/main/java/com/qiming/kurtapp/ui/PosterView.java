@@ -60,7 +60,6 @@ public class PosterView extends RecyclerView {
                 Log.i("ttt", "focus:" + getFocusedChild());
             }
         }, 1000, 1000);
-
     }
 
     private ItemDecoration decoration = new ItemDecoration() {

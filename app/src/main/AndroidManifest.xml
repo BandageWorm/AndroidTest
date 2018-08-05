@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.qiming.kurtapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.RecyclerActivity"
+        <activity
+            android:name=".ui.RecyclerActivity"
+            android:launchMode="standard"/>
+        <activity
+            android:name=".ui.KotlinActivity"
             android:launchMode="standard"/>
     </application>
 
