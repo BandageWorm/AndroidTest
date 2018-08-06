@@ -1,19 +1,12 @@
-package com.qiming.kurtapp;
+package com.kurt;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 
-import com.bluelinelabs.logansquare.LoganSquare;
-import com.qiming.kurtapp.entity.Example;
-
 import org.xml.sax.XMLReader;
-
-import java.io.InputStream;
 
 /**
  * Created by kurtg on 18/2/3.
@@ -21,22 +14,6 @@ import java.io.InputStream;
 
 public class Utils {
 
-    public static Example getJsonExp(Context context) {
-        AssetManager am = context.getAssets();
-        try {
-            InputStream is = am.open("example.json");
-            StringBuilder sb = new StringBuilder();
-            byte[] buffer = new byte[is.available()];
-            is.read(buffer);
-            String json = new String(buffer, "utf-8");
-            is.close();
-            Example example = LoganSquare.parse(json, Example.class);
-            return example;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public static CharSequence highlightTitle(String title) {
         CharSequence res = Html.fromHtml("(" + title + ")", null, new Html.TagHandler() {

@@ -1,5 +1,6 @@
 buildscript {
-    ext.KOTLIN_VER = '1.2.31'
+    ext.KOTLIN_VER = '1.2.51'
+    ext.GLIDE_VER = '4.7.1'
     ext.MIN_SDK = 23
     ext.TARGET_SDK = 27
 

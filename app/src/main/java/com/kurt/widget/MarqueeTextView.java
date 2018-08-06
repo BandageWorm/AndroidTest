@@ -1,4 +1,4 @@
-package com.qiming.kurtapp.ui;
+package com.kurt.widget;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;

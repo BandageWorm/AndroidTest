@@ -6,21 +6,9 @@
               android:clipToPadding="false"
               >
 
-    <com.qiming.kurtapp.ui.MyRecyclerView
-        android:id="@+id/three_view"
+    <view class="com.kurt.activity.PosterActivity$PosterRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="100dp"
-        android:paddingTop="100dp"
-        />
-
-    <com.qiming.kurtapp.ui.PosterView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/three_view"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:layout_centerHorizontal="true"

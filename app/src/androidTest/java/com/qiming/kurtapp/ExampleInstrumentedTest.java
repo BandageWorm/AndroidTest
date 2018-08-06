@@ -1,4 +1,4 @@
-package com.qiming.kurtapp;
+package com.kurt;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ import static org.junit.Assert.*;
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.qiming.kurtapp", appContext.getPackageName());
+        assertEquals("com.kurtapp", appContext.getPackageName());
     }
 }

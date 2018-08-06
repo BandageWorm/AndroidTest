@@ -1,4 +1,4 @@
-package com.qiming.kurtapp;
+package com.kurt;
 
 import org.junit.Test;
 
