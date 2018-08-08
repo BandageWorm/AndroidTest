@@ -10,7 +10,7 @@ import com.kurt.control.GlideApp
 
 object ViewFun {
 
-    public fun ViewGroup.inflate(layoutRes: Int): View {
+    fun ViewGroup.inflate(layoutRes: Int): View {
         return LayoutInflater.from(context).inflate(layoutRes, this, false)
     }
 
@@ -22,21 +22,20 @@ object ViewFun {
         GlideApp.with(context).load(url).placeholder(holder).error(error).into(this)
     }
 
-    fun View.pop() {
-        val scale = if (hasFocus()) 1.1F else 1.0F
+    fun View.pop(custom: Boolean? = null) {
+        val scale = if (custom ?: hasFocus()) 1.1F else 1.0F
         ViewCompat.animate(this).scaleX(scale).scaleY(scale).setDuration(50).start()
     }
 
-
-    fun View.visible(){
+    fun View.visible() {
         visibility = View.VISIBLE
     }
 
-    fun View.invisivle(){
+    fun View.invisible() {
         visibility = View.INVISIBLE
     }
 
-    fun View.gone(){
+    fun View.gone() {
         visibility = View.GONE
     }
 

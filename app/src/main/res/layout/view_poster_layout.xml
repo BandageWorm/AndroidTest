@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:descendantFocusability="afterDescendants">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <com.kurt.widget.FocusImageView
         android:id="@+id/iv_poster"
-        android:layout_width="330px"
-        android:layout_height="170px"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_width="@dimen/dimen_330"
+        android:layout_height="@dimen/dimen_170"
+        android:duplicateParentState="true"
         />
 
 
@@ -20,9 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_poster"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="@dimen/dimen_10"
         android:duplicateParentState="true"
         android:textColor="@color/selector"
-        android:textSize="15dp"/>
+        android:textSize="@dimen/dimen_50"/>
 
 </RelativeLayout>

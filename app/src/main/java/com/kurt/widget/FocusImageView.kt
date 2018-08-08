@@ -16,4 +16,6 @@ class FocusImageView : AppCompatImageView {
         focusDrawer.onDraw(canvas)
         super.dispatchDraw(canvas)
     }
+
+    fun drawFocus(b: Boolean) {focusDrawer.setDrawFocus(b)}
 }

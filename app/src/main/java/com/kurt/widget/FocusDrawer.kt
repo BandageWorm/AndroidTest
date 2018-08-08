@@ -4,13 +4,15 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.support.v4.view.ViewCompat
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.kurt.R
+import com.kurt.util.ContextFun.color
+import com.kurt.util.ViewFun.pop
 
 class FocusDrawer(view: View)  {
+    private var focus: Boolean = false
     private val view: View = view
     private val rect: Rect = Rect()
     private val paint: Paint = Paint()
@@ -21,27 +23,18 @@ class FocusDrawer(view: View)  {
         normalDrawable = nDr
     }
 
+    fun setDrawFocus(b: Boolean) {
+        focus = b
+        view.invalidate()
+    }
+
     init {
         view.getDrawingRect(rect)
-        view.isFocusable = true
-        view.isFocusableInTouchMode = true
-        if (view is ViewGroup) view.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
-        paint.color = view.context.resources.getColor(R.color.colorAccent)
-        view.setOnTouchListener({v, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                v.requestFocus()
-                return@setOnTouchListener true
-            }
-            return@setOnTouchListener false
-        })
-        view.setOnFocusChangeListener ({v, has ->
-            val scale = if (has) 1.1F else 1.0F
-            ViewCompat.animate(v).scaleX(scale).scaleY(scale).setDuration(50).start()
-        })
+        paint.color = view.context.color(R.color.colorAccent)
     }
 
     fun onDraw(canvas: Canvas?) {
-        if (view.hasFocus()) {
+        if (focus || view.hasFocus()) {
             canvas?.drawRect(rect, paint)
             focusDrawable.setBounds(-37, -21, view.width + 37, view.height + 37)
             focusDrawable.draw(canvas)
@@ -49,5 +42,6 @@ class FocusDrawer(view: View)  {
             normalDrawable?.setBounds(0, 0, view.width, view.height)
             normalDrawable?.draw(canvas)
         }
+        view.pop(focus)
     }
 }

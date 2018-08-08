@@ -1,18 +1,18 @@
 package com.kurt.activity
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.Html
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
-import android.widget.RelativeLayout
-import com.bumptech.glide.Glide
 import com.kurt.R
-import com.kurt.Utils
 import com.kurt.control.ScrollLayoutManager
 import com.kurt.entity.SearchResult
 import com.kurt.entity.VodMedia
@@ -30,6 +30,8 @@ import io.reactivex.FlowableEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.view_poster_layout.view.*
+import kotlinx.coroutines.experimental.launch
+import org.xml.sax.XMLReader
 
 class PosterActivity : BaseKotlinActivity() {
 
@@ -100,17 +102,39 @@ class PosterActivity : BaseKotlinActivity() {
 
         inner class PosterHolder(var parent: ViewGroup) : RecyclerView.ViewHolder(parent) {
             init {
-                parent.isFocusable = true
-                parent.isFocusableInTouchMode = true
-                parent.descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-                parent.setOnFocusChangeListener({ _, b -> parent.tv_poster_title.setFocus(b)})
+                parent.setOnTouchListener{_,_ ->
+                    parent.requestFocus()
+                }
+                parent.setOnFocusChangeListener{ _, b ->
+                    parent.iv_poster.drawFocus(b)
+                    parent.tv_poster_title.marquee(b)}
             }
 
             fun update(pos: Int) {
                 val bean = list[pos]
-                parent.tv_poster_title.text = Utils.highlightTitle(bean.mediaTitle)
+                parent.tv_poster_title.text = highlightTitle(bean.mediaTitle)
                 parent.iv_poster.load(bean.poster)
             }
+        }
+
+        fun highlightTitle(title: String): CharSequence {
+            val res = Html.fromHtml("($title)", null, object : Html.TagHandler {
+                private var sIndex = 0
+                private var eIndex = 0
+
+                override fun handleTag(opening: Boolean, tag: String, output: Editable, xmlReader: XMLReader) {
+                    if (tag.toLowerCase() == "start") {
+                        if (opening)
+                            sIndex = output.length
+                        else {
+                            eIndex = output.length
+                            output.setSpan(ForegroundColorSpan(Color.parseColor("#fdad00")),
+                                    sIndex, eIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
+            })
+            return res.subSequence(1, res.length - 1)
         }
     }
 }
